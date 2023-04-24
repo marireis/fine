@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import db.DB;
 import db.DbException;
@@ -16,14 +17,15 @@ import model.dao.UsuarioDao;
 public class UsuarioDaoJDBC implements UsuarioDao {
 	
 	private Connection conn;
-
+	PreparedStatement st = null;
+	
 	public UsuarioDaoJDBC(Connection conn) {
+		
 		this.conn = conn;
 	}
 
 	@Override
 	public void insert(Usuario user) {
-		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
@@ -58,39 +60,9 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		}
 		
 	}
-	
-
-	
-//	public Usuario autenticar(String login, String senha) {
-//		
-//		String sql = "SELECT id, login, senha FROM usuarios WHERE nome = ? AND senha = ?";
-//        Usuario usuario = null;
-//        
-//        try (
-//             PreparedStatement consulta = conn.prepareStatement("SELECT id, login, senha FROM usuarios WHERE nome = ? AND senha = ?")) {
-//            
-//            consulta.setString(1, login);
-//            consulta.setString(2, senha);
-//            
-//            ResultSet resultado = consulta.executeQuery();
-//            
-//            if (resultado.next()) {
-//                usuario = new Usuario();
-//                usuario.setId(resultado.getInt("id"));
-//                usuario.setNome(resultado.getString("login"));
-//                usuario.setSenha(resultado.getString("senha"));
-//            }
-//            
-//        } catch (SQLException e) {
-//            System.err.println("Erro ao autenticar usuário: " + e.getMessage());
-//        }
-//        
-//        return usuario;
-//    }
 
 	@Override
 	public void update(Usuario user) {
-		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement(
@@ -116,7 +88,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		PreparedStatement st = null;
 		
 		try {
 			st = conn.prepareStatement("DELETE FROM usuario "
@@ -142,9 +113,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 	@Override
 	public List<Usuario> findAll() {
-
-
-		PreparedStatement st = null;
+		
 		ResultSet rs = null;
 		
 		try {
@@ -175,7 +144,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 	@Override
 	public Usuario findById(Integer id) {
-		PreparedStatement st = null;
+		
 		ResultSet rs = null;
 		
 		try {
@@ -205,6 +174,40 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		}
 		
 	}
+	
+	public boolean findByNomeSenha(String nome, String senha) {
+		
+		ResultSet rs = null;
+		
+		try {
+			st = conn.prepareStatement(
+					"SELECT * FROM usuario WHERE nome = ? and senha=?");
+			
+			st.setString(1, nome);
+			st.setString(2, senha);
+			
+			rs = st.executeQuery();
+			
+			if(rs.next()) {				
+				Usuario user = new Usuario();
+				user.setId(rs.getInt("id"));
+				return true;
+			}
+			return false;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatment(st);
+			DB.closeResultSet(rs);
+		}
+		
+	}
+	
+
+	
+	
 	
 	
 

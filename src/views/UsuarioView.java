@@ -5,58 +5,20 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Usuario;
+import model.dao.DaoFactory;
+import model.dao.UsuarioDao;
 import service.UsuarioService;
 
 public class UsuarioView  {
 	
-	Scanner leitor = new Scanner(System.in);
-
-	UsuarioService usuarioService;
-	MenuPrincipalView menu;
+	private static Scanner sc = new Scanner(System.in);
+	private static Usuario user = new Usuario();	
+	private static UsuarioDao userDao = DaoFactory.createUsuarioDao();
 	
-	public void menuInicial(int op){
-		
-		do{
-			System.out.println("\n\n");
-			System.out.println("+-------------------------------------------+");
-			System.out.println("|               Menu Fine                   |");
-			System.out.println("+-------------------------------------------+");
-			System.out.println("| 01 - Login                                |");
-			System.out.println("| 02 - Cadastrar Usuario                    |");
-			System.out.println("| 99 - Sair                                 |");
-			System.out.println("+-------------------------------------------+");
-		
-		
-			System.out.print("Escolha a opcao: ");
-			op = leitor.nextInt();
-			
-//			switch(op){
-//				case 1:
-//					boolean usuarioLogado = usuarioService.loginUsuario();
-//					System.out.println("\nUsuario logado com sucesso!");
-//					if(usuarioLogado) {
-//						op = 4;
-//						menu.menuPrincipal(op);
-//					}
-//					break;	
-//				case 2:
-//					usuarioService.cadastrarUsuario(null);
-//					//System.out.println("\nFaça seu login! ");
-//					//UsuarioService.loginUsuario();
-//					break;
-//				case 99:
-//					System.out.println("ENCERRADO !");
-//					leitor.close();
-//					break;
-//					
-//				default:
-//					System.out.println("Opção Inválida");
-//			}
-		}while(op != 99);
-		
-	}
 	
-	public void menuUser(int op) {
+	public static void menuUser() {
+		
+		int op = 0;
 		
 		do{
 			System.out.println("\nBem Vindo ao Menu de Usuarios");
@@ -74,24 +36,30 @@ public class UsuarioView  {
 		
 		
 			System.out.print("Escolha a opcao: ");
-			op = leitor.nextInt();
+			op = sc.nextInt();
 					
 			switch(op){
 			case 1:
-				usuarioService.cadastrarUsuario(null);
+				System.out.print("Nome de usuario: ");
+				user.setNome(sc.next());
+				
+				System.out.print("Senha de usuario: ");
+				user.setSenha(sc.next());
+				
+				userDao.insert(user);
 				break;
 			case 2:
-				usuarioService.atualizar(null);
+				userDao.update(user);
 				break;
 			case 3:
-				usuarioService.listarTodos();
+				userDao.findAll();
 				break;
 			case 4:
-				usuarioService.excluir(op);;
+				userDao.deleteById(op);
 				break;
 			case 5:
 				System.out.println("Voltar a Tela de Login");
-				menuInicial(op);
+				MenuPrincipalView.menuPrincipal();
 				break;
 			default:
                 System.out.println("Opção inválida!");

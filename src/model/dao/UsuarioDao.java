@@ -11,5 +11,6 @@ public interface UsuarioDao {
 	void deleteById(Integer id);
 	Usuario findById(Integer id);
 	List<Usuario> findAll();
+	boolean findByNomeSenha(String nome, String senha);
 
 }

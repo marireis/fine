@@ -7,11 +7,12 @@ import service.UsuarioService;
 
 public class MenuPrincipalView {
 	
-//	static int op=60;
-	Scanner leitor = new Scanner(System.in);
-	UsuarioView usuarioView;
+
+	private static Scanner leitor = new Scanner(System.in);
 	
-	public void menuPrincipal(int op) {
+	public static void menuPrincipal() {
+		int op = 0;
+		
 		do{
 			System.out.println("\nBem Vindo ao Menu de Principal");
 			
@@ -29,7 +30,8 @@ public class MenuPrincipalView {
 					
 			switch(op){
 			case 1:
-				usuarioView.menuUser(op);
+				clearConsole();
+				UsuarioView.menuUser();
 				break;
 			case 2:
 				//IngredienteView.menuIngrediente();
@@ -46,6 +48,13 @@ public class MenuPrincipalView {
                 break;
 			}
 		}while(op != 4);
+	}
+	public static void clearConsole() {
+	    try {
+	        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+	    } catch (Exception e) {
+	        // tratamento de exceção, se necessário
+	    }
 	}
 	
 }
