@@ -8,7 +8,7 @@ import service.UsuarioService;
 public class MenuPrincipalView {
 	
 
-	private static Scanner leitor = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
 	
 	public static void menuPrincipal() {
 		int op = 0;
@@ -23,10 +23,11 @@ public class MenuPrincipalView {
 			System.out.println("| 02 - Ingrediente                          |");
 			System.out.println("| 03 - Produto                              |");
 			System.out.println("| 04 - Voltar para Tela Login               |");
+			System.out.println("| 05 - Sair                                 |");
 			System.out.println("+-------------------------------------------+");
 		
 			System.out.print("Escolha a opcao: ");
-			op = leitor.nextInt();
+			op = sc.nextInt();
 					
 			switch(op){
 			case 1:
@@ -42,6 +43,10 @@ public class MenuPrincipalView {
 			case 4:
 				System.out.println("Voltar a Tela de Login");
 				//usuarioView.menuInicial(op);
+				break;
+			case 5:
+				System.out.println("ENCERRADO !");
+				sc.close();
 				break;
 			default:
                 System.out.println("Opção inválida!");

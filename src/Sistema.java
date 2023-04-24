@@ -14,16 +14,6 @@ public class Sistema {
 		
 		login.loginInicial();
 		
-//		user.setNome("adm");
-//		user.setSenha("123");	
-		
-		
-		
-		//userView.menuInicial(0);
-		
-		//CRUD USUARIODAOJDBC
-		
-//		Scanner sc = new Scanner(System.in);
 //		
 //		UsuarioDao userDao = DaoFactory.createUsuarioDao();
 //		System.out.println("\n=== Usuario Insert====");
@@ -59,30 +49,4 @@ public class Sistema {
 		
 
 		
-		
-		
-
-
-//		
-//		usuarioServiceImpl.adicionar(usuario);
-//		usuarioServiceImpl.adicionar(usuario2);
-//		
-//		Usuario usuarioEncontrado = usuarioServiceImpl.buscarPorId(2);
-//		System.out.println(usuarioEncontrado.getLogin());
-//		
-//		List<Usuario> usuariosPorNome = usuarioServiceImpl.buscarPorNome("Joao");
-//	    for (Usuario usr : usuariosPorNome) {
-//	        System.out.println(usr.getLogin());
-//	    }
-//	    
-//
-//	    List<Usuario> todosUsuarios = usuarioServiceImpl.listarTodos();
-//	    for (Usuario usr : todosUsuarios) {
-//	        System.out.println(usr.getLogin());
-//	    }
-//	    usuario.setLogin("Maria");
-//	    usuarioServiceImpl.atualizar(usuario);
-//	   
-//	   
-//	    usuarioServiceImpl.excluir(2);
-
+	

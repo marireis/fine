@@ -71,7 +71,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 					+ "WHERE id = ?");
 			
 			st.setString(1, user.getNome());
-			st.setString(2, user.getSenha());//nao esta atualizando a senha
+			st.setString(2, user.getSenha());
 			st.setInt(3, user.getId());
 			
 			st.executeUpdate();
@@ -130,8 +130,11 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 				user.setNome(rs.getString("nome"));
 				
 				listaUsuarios.add(user);
+				
 			}
+			System.out.println(listaUsuarios);
 			return listaUsuarios;
+			
 		}
 		catch(SQLException e){
 			throw new DbException(e.getMessage());

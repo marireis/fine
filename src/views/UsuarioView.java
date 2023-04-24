@@ -31,6 +31,7 @@ public class UsuarioView  {
 			System.out.println("| 03 - Listar Usuarios                      |");
 			System.out.println("| 04 - Deletar Usuario                      |");
 			System.out.println("| 05 - Voltar para o menu principal         |");
+			System.out.println("| 06 - Sair                                 |");
 			System.out.println("+-------------------------------------------+");
 		
 		
@@ -49,17 +50,38 @@ public class UsuarioView  {
 				userDao.insert(user);
 				break;
 			case 2:
+				System.out.println("Digite o id que deseja atualizar");
+				user.setId(sc.nextInt());
+				
+				System.out.println("O nome %s " + user.getNome() + "irá atualizar para: ");
+				user.setNome(sc.next());
+				
+				System.out.println("A nova senha será: ");
+				user.setSenha(sc.next());
+				
 				userDao.update(user);
+				
+				System.out.println("O novo nome é: " + user.getNome());
 				break;
 			case 3:
 				userDao.findAll();
 				break;
 			case 4:
-				userDao.deleteById(op);
+				
+				System.out.println("Digite o id que deseja deletar");
+				user.setId(sc.nextInt());
+				
+				userDao.deleteById(user.getId());
+				
+				System.out.println("Usuario deletado com sucesso!");
 				break;
 			case 5:
 				System.out.println("Voltar a Tela de Login");
 				MenuPrincipalView.menuPrincipal();
+				break;
+			case 6:
+				System.out.println("ENCERRADO !");
+				sc.close();
 				break;
 			default:
                 System.out.println("Opção inválida!");
